@@ -78,6 +78,18 @@ const routes = [
     //meta: { guestOnly: true }
   },
   {
+    path: "/counselor/invite",
+    name: "CounselorInvite",
+    component: () => import("@/views/InviteAgent/BecomeCounselor.vue"),
+    //meta: { guestOnly: true }
+  },
+  {
+    path: "/agent/success",
+    name: "AgentSuccess",
+    component: () => import("@/views/InviteAgent/AgentSuccess.vue"),
+    //meta: { guestOnly: true }
+  },
+  {
     path: "/",
     name: "Home",
     component: () => import("@/views/Dashboard.vue"),
