@@ -933,52 +933,52 @@ onMounted(async () => {
       Notify(error.res.data)
     }
   }
-  if (user.value && user.value.counselor_id) {
-    window.Echo.channel(`Assign.Lead.Counselor.${user.value && user.value.counselor_id}`).listen(
-      'AssignLeadCounselorEvent',
-      (e) => {
-        notification.value = e
-        nextTick(() => {
-          $('.toast-custom-notification').toast('show')
-        })
-        store.dispatch('unreadNotify')
-        store.dispatch('leadAssignTrigger', notification)
-      }
-    )
-  }
+  // if (user.value && user.value.counselor_id) {
+  //   window.Echo.channel(`Assign.Lead.Counselor.${user.value && user.value.counselor_id}`).listen(
+  //     'AssignLeadCounselorEvent',
+  //     (e) => {
+  //       notification.value = e
+  //       nextTick(() => {
+  //         $('.toast-custom-notification').toast('show')
+  //       })
+  //       store.dispatch('unreadNotify')
+  //       store.dispatch('leadAssignTrigger', notification)
+  //     }
+  //   )
+  // }
 
-  window.Echo.channel(`chat-with.${user.value && user.value.id}`).listen('MessageSendEvent', () => {
-    store.dispatch('unreadMsg')
-  })
+  // window.Echo.channel(`chat-with.${user.value && user.value.id}`).listen('MessageSendEvent', () => {
+  //   store.dispatch('unreadMsg')
+  // })
 
-  window.Echo.channel(`new-lead`).listen('NewLeadEvent', () => {
-    newLeadNotify.value = 'New Leads Added! Check in Lead Lists'
-    nextTick(() => {
-      $('.toast-custom-notification').toast('show')
-    })
-  })
+  // window.Echo.channel(`new-lead`).listen('NewLeadEvent', () => {
+  //   newLeadNotify.value = 'New Leads Added! Check in Lead Lists'
+  //   nextTick(() => {
+  //     $('.toast-custom-notification').toast('show')
+  //   })
+  // })
 
   // Meeting Notify
-  window.Echo.channel(`Meeting.Notify.${user.value && user.value.counselor_id}`).listen(
-    'MeetingNotify',
-    (res) => {
-      meetingReminder.value = res
-      nextTick(() => {
-        $('.meeting-notification').toast('show')
-      })
-    }
-  )
+  // window.Echo.channel(`Meeting.Notify.${user.value && user.value.counselor_id}`).listen(
+  //   'MeetingNotify',
+  //   (res) => {
+  //     meetingReminder.value = res
+  //     nextTick(() => {
+  //       $('.meeting-notification').toast('show')
+  //     })
+  //   }
+  // )
 
   // Follow up Notify
-  window.Echo.channel(`Followup.Notify.${user.value && user.value.id}`).listen(
-    'FollowupNotify',
-    (res) => {
-      followUpReminder.value = res
-      nextTick(() => {
-        $('.followup-notification').toast('show')
-      })
-    }
-  )
+  // window.Echo.channel(`Followup.Notify.${user.value && user.value.id}`).listen(
+  //   'FollowupNotify',
+  //   (res) => {
+  //     followUpReminder.value = res
+  //     nextTick(() => {
+  //       $('.followup-notification').toast('show')
+  //     })
+  //   }
+  // )
   //Branch Manager notification
   if (user.value && user.value.user_type == 'branchManager') {
     branchNotifications()

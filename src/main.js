@@ -34,34 +34,34 @@ import "@/assets/main.scss";
 import "@/app.css"
 window.Pusher = Pusher
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_APP_PUSHER_KEY || 'secret',
-    wsHost: import.meta.env.VITE_APP_WEBSOCKETS_SERVER || '127.0.0.1',
-    forceTLS: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
-    encrypted: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
-    wsPort: import.meta.env.VITE_APP_PUSHER_PORT || 6001,
-    wssPort: import.meta.env.VITE_APP_PUSHER_PORT || 6001,
-    disableStats: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
-    enabledTransports: ['ws', 'wss'],
-    authorizer: (channel) => {
-        return {
-            authorize: (socketId, callback) => {
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_APP_PUSHER_KEY || 'secret',
+//     wsHost: import.meta.env.VITE_APP_WEBSOCKETS_SERVER || '127.0.0.1',
+//     forceTLS: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
+//     encrypted: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
+//     wsPort: import.meta.env.VITE_APP_PUSHER_PORT || 6001,
+//     wssPort: import.meta.env.VITE_APP_PUSHER_PORT || 6001,
+//     disableStats: import.meta.env.VITE_APP_PUSHER_SCHEME == 'https'? true : false,
+//     enabledTransports: ['ws', 'wss'],
+//     authorizer: (channel) => {
+//         return {
+//             authorize: (socketId, callback) => {
                 
-                Request.POST_REQ('/api/broadcasting/auth', {
-                    socket_id: socketId,
-                    channel_name: channel.name
-                })
-                .then(response => {
-                    callback(false, response.data);
-                })
-                .catch(error => {
-                    callback(true, error);
-                });
-            }
-        };
-    },
-})
+//                 Request.POST_REQ('/api/broadcasting/auth', {
+//                     socket_id: socketId,
+//                     channel_name: channel.name
+//                 })
+//                 .then(response => {
+//                     callback(false, response.data);
+//                 })
+//                 .catch(error => {
+//                     callback(true, error);
+//                 });
+//             }
+//         };
+//     },
+// })
 
 let app = createApp(App);
 app.config.performance = true;

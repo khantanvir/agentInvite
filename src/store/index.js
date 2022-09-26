@@ -52,57 +52,57 @@ export default createStore({
 
   },
   mutations: {
-    user(state, user) {
-      state.user = user;
-    },
-    userLogout(state, userLogout) {
-      state.user = userLogout;
-    },
-    pendingStatus(state, newPendingStatus) {
-      state.pendingStatus = newPendingStatus;
-    },
+    // user(state, user) {
+    //   state.user = user;
+    // },
+    // userLogout(state, userLogout) {
+    //   state.user = userLogout;
+    // },
+    // pendingStatus(state, newPendingStatus) {
+    //   state.pendingStatus = newPendingStatus;
+    // },
     baseurl(state, newUrl){
       state.baseURL = newUrl
     },
-    branch(state, branch) {
-      state.branch = branch
-    },
-    unreadMsg(state, unreadMsg) {
-      state.unreadMsg = unreadMsg
-    },
+    // branch(state, branch) {
+    //   state.branch = branch
+    // },
+    // unreadMsg(state, unreadMsg) {
+    //   state.unreadMsg = unreadMsg
+    // },
     unreadNotify(state, unreadNotify) {
       state.unreadNotify = unreadNotify
     },
-    themeModeStatus(state, themeModeStatus) {
-      state.themeModeStatus = themeModeStatus
-    },
-    followUpLists(state, followUpLists) {
-      state.followUpLists = followUpLists
-    },
-    meetingLists(state, meetingLists) {
-      state.meetingLists = meetingLists
-    },
-    leadAssignTrigger(state, leadAssignTrigger) {
-      state.leadAssignTrigger = leadAssignTrigger
-    }
+    // themeModeStatus(state, themeModeStatus) {
+    //   state.themeModeStatus = themeModeStatus
+    // },
+    // followUpLists(state, followUpLists) {
+    //   state.followUpLists = followUpLists
+    // },
+    // meetingLists(state, meetingLists) {
+    //   state.meetingLists = meetingLists
+    // },
+    // leadAssignTrigger(state, leadAssignTrigger) {
+    //   state.leadAssignTrigger = leadAssignTrigger
+    // }
 
   },
   actions: {
-    async user({ commit }) {
-      commit("pendingStatus", true);
-      try {
-        const res = await User.auth()
-        commit("user", res.data);
+    // async user({ commit }) {
+    //   commit("pendingStatus", true);
+    //   try {
+    //     const res = await User.auth()
+    //     commit("user", res.data);
           
-        commit("pendingStatus", false);
-      } catch (error) {
-        if (error.response.status === 401) {
-          localStorage.removeItem("user")
-          localStorage.setItem("user", JSON.stringify({}));
-          await router.push({ name: "Login" });
-        }
-      }
-    },
+    //     commit("pendingStatus", false);
+    //   } catch (error) {
+    //     if (error.response.status === 401) {
+    //       localStorage.removeItem("user")
+    //       localStorage.setItem("user", JSON.stringify({}));
+    //       await router.push({ name: "Login" });
+    //     }
+    //   }
+    // },
     async userLogout({ commit }) {
       commit("pendingStatus", true);
       try {
