@@ -11,6 +11,7 @@
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-6">
+                            <input type="hidden" v-model="secret_code" />
                             <div class="form-group">
                                 <label for="pwd">Agent Name</label>
                                 <input v-model="agent_name" id="agent_name"  name="agent_name" type="text" class="form-control">
@@ -388,14 +389,16 @@
     
         const store = useStore()
         const router = useRouter()
-        //const user = computed(() => store.getters.user)
         const route = useRoute()
+        //const user = computed(() => store.getters.user)
+        //console.log(route.params.id)
         const isLoading = ref(false)
         const isPending = ref(false)
         const get_countries_for_branch = ref([])
         const get_branches = ref([])
         const get_countries = ref([])
         //post value
+        const secret_code = ref('')
         const agent_name = ref('')
         const agent_email = ref('')
         const agent_phone = ref('')
@@ -429,12 +432,17 @@
         },
         ])
         const errors = ref({})
+
+        const getToken = async()=>{
+            secret_code.value = route.params.id
+        }
     
         const createNewAgent = async()=>{
             isLoading.value = true
             isPending.value = true
             const data = new FormData()
             data.append('branch_id', branch_id.value)
+            data.append('secret_code', secret_code.value)
             data.append('agent_name', agent_name.value)
             data.append('agent_phone', agent_phone.value)
             data.append('agent_email', agent_email.value)
@@ -460,49 +468,60 @@
             data.append('company_city', company_city.value)
             data.append('company_zip_code', company_zip_code.value)
             data.append('company_address', company_address.value)
-            data.append('additionals', additionals.value)
-            console.log(data)
+            data.append('addtional_info', additionals.value)
+            console.log(additionals.value)
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
             }
             axios.post('http://127.0.0.1:8000/api/became-an-agent',data,config)
-                .then(data=> {
-                console.log(data)
-                isLoading.value = false
-                Notify.success('Agent Request Sent Successfully!')
-                router.push({ name: 'AgentSuccess' })
-                isPending.value = false
-                })
-                .catch(error=> {
-                    isPending.value = false
-                    //console
-                    errors.value = error.response.data.errors
-                    Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
-                    Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
-                    Notify.error(errors.value.agent_phone && error.response.data.errors.agent_phone[0])
-                    Notify.error(errors.value.country && error.response.data.errors.country[0])
-                    Notify.error(errors.value.city && error.response.data.errors.city[0])
-                    Notify.error(errors.value.address && error.response.data.errors.address[0])
-                    Notify.error(errors.value.alternative_contact && error.response.data.errors.alternative_contact[0])
-                    Notify.error(errors.value.nid_or_passport && error.response.data.errors.nid_or_passport[0])
-                    Notify.error(errors.value.nationality && error.response.data.errors.nationality[0])
-                    //Notify.error(errors.value.logo && error.response.data.errors.logo[0])
-                    Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
-                    Notify.error(errors.value.company_name && error.response.data.errors.company_name[0])
-                    Notify.error(errors.value.company_registration_number && error.response.data.errors.company_registration_number[0])
-                    Notify.error(errors.value.company_trade_license && error.response.data.errors.company_trade_license[0])
-                    Notify.error(errors.value.company_trade_license_number && error.response.data.errors.company_trade_license_number[0])
-                    Notify.error(errors.value.company_establish_date && error.response.data.errors.company_establish_date[0])
-                    Notify.error(errors.value.company_number_of_employee && error.response.data.errors.company_number_of_employee[0])
-                    Notify.error(errors.value.company_phone && error.response.data.errors.company_phone[0])
-                    Notify.error(errors.value.company_email && error.response.data.errors.company_email[0])
-                    Notify.error(errors.value.company_address && error.response.data.errors.company_address[0])
-                    Notify.error(errors.value.company_zip_code && error.response.data.errors.company_zip_code[0])
-                    Notify.error(errors.value.company_city && error.response.data.errors.company_city[0])
-                    Notify.error(errors.value.company_state && error.response.data.errors.company_state[0])
-                    Notify.error(errors.value.company_country && error.response.data.errors.company_country[0])
+                .then(res=> {
+                console.log(res)
+                // alert('called')
+                // if(res.data.result.key==101){
+                //     Notify.error(res.data.result.val)
+                //     isLoading.value = false
+                //     isPending.value = false
+                // }
+                // if(res.data.result.key==200){
+                //     alert('success called')
+                //     isLoading.value = false
+                //     Notify.success('Agent Request Sent Successfully!')
+                //     router.push({ name: 'AgentSuccess' })
+                //     isPending.value = false
+                // }
+                
+                // })
+                // .catch(error=> {
+                //     isPending.value = false
+                //     alert('error called')
+                //     //console
+                //     errors.value = error.response.data.errors
+                //     Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
+                //     Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
+                //     Notify.error(errors.value.agent_phone && error.response.data.errors.agent_phone[0])
+                //     Notify.error(errors.value.country && error.response.data.errors.country[0])
+                //     Notify.error(errors.value.city && error.response.data.errors.city[0])
+                //     Notify.error(errors.value.address && error.response.data.errors.address[0])
+                //     Notify.error(errors.value.alternative_contact && error.response.data.errors.alternative_contact[0])
+                //     Notify.error(errors.value.nid_or_passport && error.response.data.errors.nid_or_passport[0])
+                //     Notify.error(errors.value.nationality && error.response.data.errors.nationality[0])
+                //     Notify.error(errors.value.logo && error.response.data.errors.logo[0])
+                //     Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
+                //     Notify.error(errors.value.company_name && error.response.data.errors.company_name[0])
+                //     Notify.error(errors.value.company_registration_number && error.response.data.errors.company_registration_number[0])
+                //     Notify.error(errors.value.company_trade_license && error.response.data.errors.company_trade_license[0])
+                //     Notify.error(errors.value.company_trade_license_number && error.response.data.errors.company_trade_license_number[0])
+                //     Notify.error(errors.value.company_establish_date && error.response.data.errors.company_establish_date[0])
+                //     Notify.error(errors.value.company_number_of_employee && error.response.data.errors.company_number_of_employee[0])
+                //     Notify.error(errors.value.company_phone && error.response.data.errors.company_phone[0])
+                //     Notify.error(errors.value.company_email && error.response.data.errors.company_email[0])
+                //     Notify.error(errors.value.company_address && error.response.data.errors.company_address[0])
+                //     Notify.error(errors.value.company_zip_code && error.response.data.errors.company_zip_code[0])
+                //     Notify.error(errors.value.company_city && error.response.data.errors.company_city[0])
+                //     Notify.error(errors.value.company_state && error.response.data.errors.company_state[0])
+                //     Notify.error(errors.value.company_country && error.response.data.errors.company_country[0])
                 })
             }
         const getCountriesForBranch = async() =>{
@@ -566,33 +585,13 @@
         }
         function onChangeLogo(event){
             logo.value = event.target.files[0]
-            // if (file.size > 1048770) {
-            //     Notify.warning('file is bigger than 2mb')
-            // } else {
-            //     let reader = new FileReader()
-            //     reader.onload = (event) => {
-            //     logo.value = event.target.result
-            //     console.log(logo.value)
-            //     }
-            //     reader.readAsDataURL(file)
-            // }
         }
         
         function onChangeCompanyTradeLicense(event){
             company_trade_license.value = event.target.files[0]
-            // if (file.size > 1048770) {
-            //     Notify.warning('file is bigger than 2mb')
-            // } else {
-            //     let reader = new FileReader()
-            //         reader.onload = (event) => {
-            //         company_trade_license.value = event.target.result
-            //     }
-            //     reader.readAsDataURL(file)
-            // }
-            
         }
         const add = async()=> {
-        additionals.value.push({ additional: '' })
+            additionals.value.push({ additional:'' })
         }
         const remove = async(index)=> {
         additionals.value.splice(index, 1)
@@ -600,6 +599,7 @@
     
         await getCountriesForBranch()
         await getAllCountries()
+        await getToken()
     
     </script>
     
