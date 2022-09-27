@@ -80,7 +80,13 @@ const routes = [
   {
     path: "/counselor/invite",
     name: "CounselorInvite",
-    component: () => import("@/views/InviteAgent/BecomeCounselor.vue"),
+    component: () => import("@/views/InviteAgent/CounselorInvite.vue"),
+    //meta: { guestOnly: true }
+  },
+  {
+    path: "/filed/add",
+    name: "FiledAdd",
+    component: () => import("@/views/InviteAgent/FildeAdd.vue"),
     //meta: { guestOnly: true }
   },
   {
