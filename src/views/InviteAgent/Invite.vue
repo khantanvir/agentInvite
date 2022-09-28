@@ -390,14 +390,11 @@
         const store = useStore()
         const router = useRouter()
         const route = useRoute()
-        //const user = computed(() => store.getters.user)
-        //console.log(route.params.id)
         const isLoading = ref(false)
         const isPending = ref(false)
         const get_countries_for_branch = ref([])
         const get_branches = ref([])
         const get_countries = ref([])
-        //post value
         const secret_code = ref('')
         const agent_name = ref('')
         const agent_email = ref('')
@@ -407,7 +404,6 @@
         const branch_id = ref('')
         const state = ref('')
         const city = ref('')
-    
         const address = ref('')
         const agent_bg_color = ref('')
         const nationality = ref('')
@@ -432,11 +428,9 @@
         },
         ])
         const errors = ref({})
-
         const getToken = async()=>{
             secret_code.value = route.params.id
         }
-    
         const createNewAgent = async()=>{
             isLoading.value = true
             isPending.value = true
@@ -468,8 +462,7 @@
             data.append('company_city', company_city.value)
             data.append('company_zip_code', company_zip_code.value)
             data.append('company_address', company_address.value)
-            data.append('addtional_info', additionals.value)
-            console.log(additionals.value)
+            data.append('addtional_info', JSON.stringify(additionals.value))
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -478,50 +471,24 @@
             axios.post('http://127.0.0.1:8000/api/became-an-agent',data,config)
                 .then(res=> {
                 console.log(res)
-                // alert('called')
-                // if(res.data.result.key==101){
-                //     Notify.error(res.data.result.val)
-                //     isLoading.value = false
-                //     isPending.value = false
-                // }
-                // if(res.data.result.key==200){
-                //     alert('success called')
-                //     isLoading.value = false
-                //     Notify.success('Agent Request Sent Successfully!')
-                //     router.push({ name: 'AgentSuccess' })
-                //     isPending.value = false
-                // }
-                
-                // })
-                // .catch(error=> {
-                //     isPending.value = false
-                //     alert('error called')
-                //     //console
-                //     errors.value = error.response.data.errors
-                //     Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
-                //     Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
-                //     Notify.error(errors.value.agent_phone && error.response.data.errors.agent_phone[0])
-                //     Notify.error(errors.value.country && error.response.data.errors.country[0])
-                //     Notify.error(errors.value.city && error.response.data.errors.city[0])
-                //     Notify.error(errors.value.address && error.response.data.errors.address[0])
-                //     Notify.error(errors.value.alternative_contact && error.response.data.errors.alternative_contact[0])
-                //     Notify.error(errors.value.nid_or_passport && error.response.data.errors.nid_or_passport[0])
-                //     Notify.error(errors.value.nationality && error.response.data.errors.nationality[0])
-                //     Notify.error(errors.value.logo && error.response.data.errors.logo[0])
-                //     Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
-                //     Notify.error(errors.value.company_name && error.response.data.errors.company_name[0])
-                //     Notify.error(errors.value.company_registration_number && error.response.data.errors.company_registration_number[0])
-                //     Notify.error(errors.value.company_trade_license && error.response.data.errors.company_trade_license[0])
-                //     Notify.error(errors.value.company_trade_license_number && error.response.data.errors.company_trade_license_number[0])
-                //     Notify.error(errors.value.company_establish_date && error.response.data.errors.company_establish_date[0])
-                //     Notify.error(errors.value.company_number_of_employee && error.response.data.errors.company_number_of_employee[0])
-                //     Notify.error(errors.value.company_phone && error.response.data.errors.company_phone[0])
-                //     Notify.error(errors.value.company_email && error.response.data.errors.company_email[0])
-                //     Notify.error(errors.value.company_address && error.response.data.errors.company_address[0])
-                //     Notify.error(errors.value.company_zip_code && error.response.data.errors.company_zip_code[0])
-                //     Notify.error(errors.value.company_city && error.response.data.errors.company_city[0])
-                //     Notify.error(errors.value.company_state && error.response.data.errors.company_state[0])
-                //     Notify.error(errors.value.company_country && error.response.data.errors.company_country[0])
+                if(res.data.result.key==101){
+                    Notify.error(res.data.result.val)
+                    isLoading.value = false
+                    isPending.value = false
+                }
+                if(res.data.result.key==200){
+                    isLoading.value = false
+                    Notify.success('Agent Request Sent Successfully!')
+                    router.push({ name: 'AgentSuccess' })
+                    isPending.value = false
+                }
+                })
+                .catch(error=> {
+                    isPending.value = false
+                    errors.value = error.response.data.errors
+                    Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
+                    Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
+                    Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
                 })
             }
         const getCountriesForBranch = async() =>{
