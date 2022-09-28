@@ -59,7 +59,6 @@
                                     <option v-for="(countryRow) in get_countries_for_branch" :key="countryRow.id">
                                         {{ countryRow.name }}
                                     </option>
-                                    
                                 </select>
                                 <small v-if="errors.country" id="sh-text1" class="form-text text-danger">{{
                                     errors.country[0]
@@ -310,6 +309,7 @@
                           v-model="input.additional"
                           class="form-control"
                           rows="3"
+                          :key="index"
                           spellcheck="false"
                         ></textarea>
                       </div>
@@ -468,8 +468,9 @@
             data.append('company_city', company_city.value)
             data.append('company_zip_code', company_zip_code.value)
             data.append('company_address', company_address.value)
-            data.append('addtional_info', additionals.value)
-            console.log(additionals.value)
+            data.append('addtional_info', Object.entries(additionals.value))
+            //console.log(additionals.value)
+            console.log(JSON.parse(JSON.stringify(additionals.value)))
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -544,12 +545,13 @@
         }
         //get branches by country 
         const getBranchesByCountry = async(country_name)=>{
-            isLoading.value = true
+            alert('hello')
+            //isLoading.value = true
             Request.GET_REQ('/get-branch-list-for-became_agent/'+country_name)
                 .then((res) => {
                 if(res.data.result.key==101){
                     Notify.error(res.data.result.val)
-                    isLoading.value = false
+                    //isLoading.value = false
                 }
                 if(res.data.result.key==200){
                     //console.log(res.data.result.val)

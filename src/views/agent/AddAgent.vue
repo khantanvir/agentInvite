@@ -40,7 +40,7 @@
                     class="form-control"
                     @change="selectBranch($event.target.value)"
                   >
-                    <option disabled value="">Select a Branch</option>
+                    <option value="">Select a Branch</option>
                     <option v-for="branch in branches" :key="branch.id" :value="branch.id">
                       {{ branch.branch_name }}
                     </option>
@@ -460,17 +460,19 @@ function handleSubmit() {
   }
 
   Request.POST_REQ(data, '/add-agent')
-    .then(() => {
-      isLoading.value = false
+    .then((res) => {
+      console.log(res)
+      //isLoading.value = false
       // resetForm();
-      router.push({ name: 'Agents' })
-      Notify.success('The Agent Successfully Created')
+      //router.push({ name: 'Agents' })
+      //Notify.success('The Agent Successfully Created')
     })
     .catch((err) => {
-      errors.value = err.response.data.errors
-      isLoading.value = false
+      console.log(err)
+      //errors.value = err.response.data.errors
+      //isLoading.value = false
 
-      Notify.error(errors.value)
+      //Notify.error(errors.value)
     })
 }
 function onFileChange(event) {
