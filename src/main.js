@@ -10,6 +10,7 @@ import jQuery from "jquery";
 import moment from 'moment';
 import Notify from "./helpers/Notify";
 
+
 window.jQuery = jQuery;
 window.$ = jQuery;
 import "popper.js";
