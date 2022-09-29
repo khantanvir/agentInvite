@@ -2,7 +2,7 @@
     <div class=" counselor-invite px-5">
         <div class="row">
             <div class="card-body">
-                <h2 class="title text-center text-2xl invite-form">Counselor Invitation Form</h2><br>
+                <h2 class="title text-2xl">Counselor Invitation Form</h2><br>
 
                 <form method="POST" id="basic-form" @submit.prevent="submitForm" enctype="multipart/form-data">
                     <div class="row col-md-12 ml-1 mb-3">
@@ -336,20 +336,24 @@
 
 <style>
 .counselor-invite{
-    background-color: #393966;
+    background-color: #e2e3e2;
+    margin: 30px;
 }
     
 .invite-form{
-    color: #87ff9c;
+    color: #bd2121;
 }
 .submit-button {
     font-size: 1rem;
     color: white;
 }
 .form-group label{
-    color: white;
-}
-.text-danger{
+        font-size: 17px !important;
+        color: #17181c !important;
+        letter-spacing: 1px
+    }
+
+/* .text-danger{
     font-size: 15px !important;
-}
+} */
 </style>
