@@ -7,11 +7,12 @@
             Having trouble? <a href="https://www.boosteducationservice.co.uk/contact-us/" target="_blank">Contact us</a>
         </p>
         <p class="lead">
-            <a class="btn btn-primary btn-sm mt-2" href="https://bootstrapcreative.com/" target="_blank" role="button">Continue to homepage</a>
+            <a class="btn btn-primary btn-sm mt-2" href="https://www.boosteducationservice.co.uk/" target="_blank" role="button">Continue to homepage</a>
         </p>
 </div>
 </template>
 <style>
+    
 .jumbotron{
     margin: 0 auto;
     width: 50%;

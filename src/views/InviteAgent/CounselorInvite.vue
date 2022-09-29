@@ -353,7 +353,7 @@
         letter-spacing: 1px
     }
 
-/* .text-danger{
+.text-danger{
     font-size: 15px !important;
-} */
+}
 </style>
