@@ -1,57 +1,43 @@
 <template>
-    <div>
-        <div class="thankyou-page">
-            <div class="_header">
-                <div class="logo">
-                    <img src="https://codexcourier.com/images/banner-logo.png" alt="">
-                </div>
-                <h1>Thank You!</h1>
-            </div>
-            <div class="_body">
-                <div class="_box">
-                    <h2>
-                        <strong>Please check your email</strong> for further instructions on how to complete your
-                        account setup. <b class="text-rose-500">Very soon get your account Credentials</b>
-                    </h2>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Thank You!</h1>
+            <p class="lead"><strong>Please check your email</strong> for further instructions on how to complete your account setup.</p>
+        <hr>
+        <p>
+            Having trouble? <a href="">Contact us</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="https://bootstrapcreative.com/" role="button">Continue to homepage</a>
+        </p>
+</div>
 </template>
-<script>
-export default {
-
-}
-</script>
 <style>
+.jumbotron{
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 78px;
+}
 .thankyou-page ._header {
     padding: 100px 30px;
     text-align: center;
     background: #393966 url(https://codexcourier.com/images/main_page.jpg) center/cover no-repeat;
 }
-
 .thankyou-page ._header .logo {
     max-width: 200px;
     margin: 0 auto 50px;
 }
-
 .thankyou-page ._header .logo img {
     width: 100%;
 }
-
 .thankyou-page ._header h1 {
     font-size: 65px;
     font-weight: 800;
     color: white;
     margin: 0;
 }
-
 .thankyou-page ._body {
     margin: -70px 0 30px;
 }
-
 .thankyou-page ._body ._box {
     margin: auto;
     max-width: 80%;
@@ -62,7 +48,6 @@ export default {
     -moz-box-shadow: 0 0 35px rgba(10, 10, 10, 0.12);
     -webkit-box-shadow: 0 0 35px rgba(10, 10, 10, 0.12);
 }
-
 .thankyou-page ._body ._box h2 {
     font-size: 32px;
     font-weight: 600;

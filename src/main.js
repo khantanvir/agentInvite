@@ -84,4 +84,3 @@ router.isReady().then(() => {
 }).catch(err => {
     Notify.error(err);
 })
-    

@@ -462,13 +462,7 @@
             data.append('company_city', company_city.value)
             data.append('company_zip_code', company_zip_code.value)
             data.append('company_address', company_address.value)
-<<<<<<< HEAD
             data.append('addtional_info', JSON.stringify(additionals.value))
-=======
-            data.append('addtional_info', Object.entries(additionals.value))
-            //console.log(additionals.value)
-            console.log(JSON.parse(JSON.stringify(additionals.value)))
->>>>>>> 915543902ac3ee97b709dcb197e7a7fef5d215f7
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -517,16 +511,12 @@
         }
         //get branches by country 
         const getBranchesByCountry = async(country_name)=>{
-            alert('hello')
-            //isLoading.value = true
             Request.GET_REQ('/get-branch-list-for-became_agent/'+country_name)
                 .then((res) => {
                 if(res.data.result.key==101){
                     Notify.error(res.data.result.val)
-                    //isLoading.value = false
                 }
                 if(res.data.result.key==200){
-                    //console.log(res.data.result.val)
                     get_branches.value = res.data.result.val
                     isLoading.value = false
                 }
