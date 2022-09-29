@@ -209,20 +209,11 @@
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
-<<<<<<< HEAD
-=======
-    //const user = computed(() => store.getters.user)
-    //console.log(route.params.id)
->>>>>>> 915543902ac3ee97b709dcb197e7a7fef5d215f7
     const isLoading = ref(false)
     const isPending = ref(false)
     const get_countries_for_branch = ref([])
     const get_branches = ref([])
     const errors = ref({})
-<<<<<<< HEAD
-=======
-    //form post value
->>>>>>> 915543902ac3ee97b709dcb197e7a7fef5d215f7
     const secret_code = ref('')
     const branch_id = ref('')
     const counselor_name = ref('')
