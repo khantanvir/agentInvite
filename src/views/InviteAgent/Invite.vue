@@ -53,10 +53,10 @@
                     <div class="row col-md-12">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pwd">Select Country</label>
-                                <select @change="getBranchesByCountry(country)" id="country" v-model="country" class="form-control" >
+                                <label for="pwd">Agent Country</label>
+                                <select id="country" v-model="country" class="form-control" >
                                     <option value="">--Select One--</option>
-                                    <option v-for="(countryRow) in get_countries_for_branch" :key="countryRow.id">
+                                    <option :value="countryRow.id" v-for="(countryRow) in get_countries_for_branch" :key="countryRow.id">
                                         {{ countryRow.name }}
                                     </option>
                                 </select>
@@ -247,7 +247,6 @@
                                 <option v-for="(getcountry) in get_countries" :key="getcountry" :value="getcountry">
                                     {{ getcountry }}
                                 </option>
-                               
                             </select>
                             <small v-if="errors.company_country" id="sh-text1" class="form-text text-danger">{{
                                     errors.company_country[0]
@@ -510,8 +509,8 @@
                 })
         }
         //get branches by country 
-        const getBranchesByCountry = async(country_name)=>{
-            Request.GET_REQ('/get-branch-list-for-became_agent/'+country_name)
+        const getBranchesByCountry = async()=>{
+            Request.GET_REQ('/get-branch-list-for-became_agent')
                 .then((res) => {
                 if(res.data.result.key==101){
                     Notify.error(res.data.result.val)
@@ -564,6 +563,7 @@
         await getCountriesForBranch()
         await getAllCountries()
         await getToken()
+        await getBranchesByCountry()
     
     </script>
     
