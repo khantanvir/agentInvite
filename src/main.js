@@ -77,6 +77,8 @@ app.use(VueApexCharts);
 app.config.globalProperties.$apexcharts = ApexCharts;
 app.use(VCalendar);
 app.use(SetupCalendar, {})
+app.config.globalProperties.site_url = 'http://127.0.0.1:8000/'
+app.config.globalProperties.site_url1 = 'http://127.0.0.1:8000'
 app.component('Calendar', Calendar)
 app.component('DatePicker', DatePicker)
 router.isReady().then(() => {

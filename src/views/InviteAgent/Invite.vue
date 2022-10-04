@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pwd">Alternative Contact</label>
+                                <label for="pwd">Alternative Agent Contact</label>
                                 <input v-model="alternative_contact" id="alternative_contact" name="alternative_contact" type="text" class="form-control" >
                                 <small v-if="errors.alternative_contact" id="sh-text1" class="form-text text-danger">{{
                                     errors.alternative_contact[0]
@@ -77,6 +77,26 @@
                                 <small v-if="errors.branch_id" id="sh-text1" class="form-text text-danger">{{
                                     errors.branch_id[0]
                                 }}</small>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pwd">Alt Contact Person Name</label>
+                                <input v-model="alt_person_name" id="state" name="state" type="text" class="form-control" >
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pwd">Alt Contact Person Email</label>
+                                <input v-model="alt_person_email" id="city" name="city" type="text" class="form-control" >
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pwd">Alt Contact Person Phone</label>
+                                <input v-model="alt_person_phone" id="city" name="city" type="text" class="form-control" >
                               </div>
                         </div>
                     </div>
@@ -399,6 +419,9 @@
         const agent_email = ref('')
         const agent_phone = ref('')
         const alternative_contact = ref('')
+        const alt_person_name = ref('')
+        const alt_person_email = ref('')
+        const alt_person_phone = ref('')
         const country = ref('')
         const branch_id = ref('')
         const state = ref('')
@@ -443,6 +466,9 @@
             data.append('city', city.value)
             data.append('state', state.value)
             data.append('alternative_contact', alternative_contact.value)
+            data.append('alt_person_name', alt_person_name.value)
+            data.append('alt_person_email', alt_person_email.value)
+            data.append('alt_person_phone', alt_person_phone.value)
             data.append('address', address.value)
             data.append('agent_bg_color', agent_bg_color.value)
             data.append('nationality', nationality.value)
