@@ -14,7 +14,10 @@
                             <input type="hidden" v-model="secret_code" />
                             <div class="form-group">
                                 <label for="pwd">Agent Name</label>
-                                <input v-model="agent_name" id="agent_name"  name="agent_name" type="text" class="form-control">
+                                <input v-model="stateset.agent_name" id="agent_name"  name="agent_name" type="text" class="form-control">
+                                <span class="form-text text-danger" v-if="v$.agent_name.$error">
+                                    {{ v$.agent_name.$errors[0].$message }}
+                                </span>
                                 <small v-if="errors.agent_name" id="sh-text1" class="form-text text-danger">{{
                                     errors.agent_name[0]
                                 }}</small>
@@ -23,7 +26,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Agent Email</label>
-                                <input v-model="agent_email" id="agent_email"  name="agent_email" type="email" class="form-control">
+                                <input v-model="stateset.agent_email" id="agent_email"  name="agent_email" type="email" class="form-control">
+                                <span class="form-text text-danger" v-if="v$.agent_email.$error">
+                                    {{ v$.agent_email.$errors[0].$message }}
+                                </span>
                                 <small v-if="errors.agent_email" id="sh-text1" class="form-text text-danger">{{
                                     errors.agent_email[0]
                                 }}</small>
@@ -34,19 +40,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Agent Phone</label>
-                                <input v-model="agent_phone" id="agent_phone" name="agent_phone" type="text" class="form-control" >
-                                <small v-if="errors.agent_phone" id="sh-text1" class="form-text text-danger">{{
-                                    errors.agent_phone[0]
-                                }}</small>
+                                <input v-model="stateset.agent_phone" type="text" class="form-control" >
+                                <span class="form-text text-danger" v-if="v$.agent_phone.$error">
+                                    {{ v$.agent_phone.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Alternative Agent Contact</label>
-                                <input v-model="alternative_contact" id="alternative_contact" name="alternative_contact" type="text" class="form-control" >
-                                <small v-if="errors.alternative_contact" id="sh-text1" class="form-text text-danger">{{
-                                    errors.alternative_contact[0]
-                                }}</small>
+                                <input v-model="stateset.alternative_contact" id="alternative_contact" name="alternative_contact" type="text" class="form-control" >
+                                <span class="form-text text-danger" v-if="v$.alternative_contact.$error">
+                                    {{ v$.alternative_contact.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -54,29 +60,29 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Agent Country</label>
-                                <select id="country" v-model="country" class="form-control" >
+                                <select id="country" v-model="stateset.country" class="form-control" >
                                     <option value="">--Select One--</option>
                                     <option :value="countryRow.id" v-for="(countryRow) in get_countries_for_branch" :key="countryRow.id">
                                         {{ countryRow.name }}
                                     </option>
                                 </select>
-                                <small v-if="errors.country" id="sh-text1" class="form-text text-danger">{{
-                                    errors.country[0]
-                                }}</small>
+                                <span class="form-text text-danger" v-if="v$.country.$error">
+                                    {{ v$.country.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Select Branch</label>
-                                <select v-model="branch_id" class="form-control" >
+                                <select v-model="stateset.branch_id" class="form-control" >
                                     <option value="">--Select One--</option>
                                     <option v-for="(branch) in get_branches" :key="branch.id" :value="branch.id">
                                         {{ branch.branch_name }}
                                     </option>
                                 </select>
-                                <small v-if="errors.branch_id" id="sh-text1" class="form-text text-danger">{{
-                                    errors.branch_id[0]
-                                }}</small>
+                                <span class="form-text text-danger" v-if="v$.branch_id.$error">
+                                    {{ v$.branch_id.$errors[0].$message }}
+                                </span>
                               </div>
                         </div>
                     </div>
@@ -84,19 +90,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Alt Contact Person Name</label>
-                                <input v-model="alt_person_name" id="state" name="state" type="text" class="form-control" >
+                                <input v-model="person_name" type="text" class="form-control" >
                               </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Alt Contact Person Email</label>
-                                <input v-model="alt_person_email" id="city" name="city" type="text" class="form-control" >
+                                <input v-model="person_email" type="text" class="form-control" >
                               </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Alt Contact Person Phone</label>
-                                <input v-model="alt_person_phone" id="city" name="city" type="text" class="form-control" >
+                                <input v-model="person_phone" type="text" class="form-control" >
                               </div>
                         </div>
                     </div>
@@ -104,19 +110,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">State</label>
-                                <input v-model="state" id="state" name="state" type="text" class="form-control" >
-                                <small v-if="errors.state" id="sh-text1" class="form-text text-danger">{{
-                                    errors.state[0]
-                                }}</small>
+                                <input v-model="stateset.state" id="state" name="state" type="text" class="form-control" >
+                                <span class="form-text text-danger" v-if="v$.state.$error">
+                                    {{ v$.state.$errors[0].$message }}
+                                </span>
                               </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">City</label>
-                                <input v-model="city" id="city" name="city" type="text" class="form-control" >
-                                <small v-if="errors.city" id="sh-text1" class="form-text text-danger">{{
-                                    errors.city[0]
-                                }}</small>
+                                <input v-model="stateset.city" id="city" name="city" type="text" class="form-control" >
+                                <span class="form-text text-danger" v-if="v$.city.$error">
+                                    {{ v$.city.$errors[0].$message }}
+                                </span>
                               </div>
                         </div>
                         <div class="col-md-4">
@@ -131,10 +137,10 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="pwd">Address</label>
-                                <textarea v-model="address" id="address" class="form-control" name="address" rows="3" ></textarea>
-                                <small v-if="errors.address" id="sh-text1" class="form-text text-danger">{{
-                                    errors.address[0]
-                                }}</small>
+                                <textarea v-model="stateset.address" id="address" class="form-control" name="address" rows="3" ></textarea>
+                                <span class="form-text text-danger" v-if="v$.address.$error">
+                                    {{ v$.address.$errors[0].$message }}
+                                </span>
                               </div>
                         </div>
                     </div>
@@ -148,7 +154,10 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="pwd">Agent Background Color</label>
-                                <input v-model="agent_bg_color" id="color" class="" type="color" >
+                                <input v-model="stateset.agent_bg_color" id="color" class="" type="color" >
+                                <span class="form-text text-danger" v-if="v$.agent_bg_color.$error">
+                                    {{ v$.agent_bg_color.$errors[0].$message }}
+                                </span>
                                 <small v-if="errors.agent_bg_color" id="sh-text1" class="form-text text-danger">{{
                                     errors.agent_bg_color[0]
                                 }}</small>
@@ -157,10 +166,10 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Nationality</label>
-                                <input v-model="nationality" id="nationality" class="form-control" type="text" name="nationality" >
-                                <small v-if="errors.nationality" id="sh-text1" class="form-text text-danger">{{
-                                    errors.nationality[0]
-                                }}</small>
+                                <input v-model="stateset.nationality" id="nationality" class="form-control" type="text" name="nationality" >
+                                <span class="form-text text-danger" v-if="v$.nationality.$error">
+                                    {{ v$.nationality.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -168,10 +177,10 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="pwd">Nid or Passport</label>
-                                <input v-model="nid_or_passport" id="nid_or_passport" class="form-control" type="text" name="nid_or_passport" >
-                                <small v-if="errors.nid_or_passport" id="sh-text1" class="form-text text-danger">{{
-                                    errors.nid_or_passport[0]
-                                }}</small>
+                                <input v-model="stateset.nid_or_passport" id="nid_or_passport" class="form-control" type="text" name="nid_or_passport" >
+                                <span class="form-text text-danger" v-if="v$.nid_or_passport.$error">
+                                    {{ v$.nid_or_passport.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -182,19 +191,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Company Name</label>
-                                <input v-model="company_name" id="company_name" class="form-control" type="text" name="company_name" >
-                                <small v-if="errors.company_name" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_name[0]
-                                }}</small>
+                                <input v-model="stateset.company_name" id="company_name" class="form-control" type="text" name="company_name" >
+                                <span class="form-text text-danger" v-if="v$.company_name.$error">
+                                    {{ v$.company_name.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Company Registration Number</label>
-                                <input v-model="company_registration_number" id="company_registration_number" class="form-control" type="text" name="company_registration_number" >
-                                <small v-if="errors.company_registration_number" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_registration_number[0]
-                                }}</small>
+                                <input v-model="stateset.company_registration_number" id="company_registration_number" class="form-control" type="text" name="company_registration_number" >
+                                <span class="form-text text-danger" v-if="v$.company_registration_number.$error">
+                                    {{ v$.company_registration_number.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -203,18 +212,18 @@
                             <div class="form-group">
                                 <label for="pwd">Company Trade License</label>
                                 <input @change="onChangeCompanyTradeLicense" id="company_trade_license" class="form-control" type="file" name="company_trade_license">
-                                <small v-if="errors.company_trade_license" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_trade_license[0]
-                                }}</small>
+                                <span class="form-text text-danger" v-if="v$.company_trade_license.$error">
+                                    {{ v$.company_trade_license.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Company Trade License Number</label>
-                                <input v-model="company_trade_license_number" id="company_trade_license_number" class="form-control" type="text" name="company_trade_license_number" >
-                                <small v-if="errors.company_trade_license_number" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_trade_license_number[0]
-                                }}</small>
+                                <input v-model="stateset.company_trade_license_number" id="company_trade_license_number" class="form-control" type="text" name="company_trade_license_number" >
+                                <span class="form-text text-danger" v-if="v$.company_trade_license_number.$error">
+                                    {{ v$.company_trade_license_number.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -222,19 +231,19 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="pwd">Company Establish Date</label>
-                                <input v-model="company_establish_date" id="company_establish_date" class="form-control" type="date" name="company_establish_date" >
-                                <small v-if="errors.company_establish_date" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_establish_date[0]
-                                }}</small>
+                                <input v-model="stateset.company_establish_date" id="company_establish_date" class="form-control" type="date" name="company_establish_date" >
+                                <span class="form-text text-danger" v-if="v$.company_establish_date.$error">
+                                    {{ v$.company_establish_date.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Company Number Of Employee</label>
-                                <input v-model="company_number_of_employee" id="company_number_of_employee" class="form-control" type="text" name="company_number_of_employee" >
-                                <small v-if="errors.company_number_of_employee" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_number_of_employee[0]
-                                }}</small>
+                                <input v-model="stateset.company_number_of_employee" id="company_number_of_employee" class="form-control" type="text" name="company_number_of_employee" >
+                                <span class="form-text text-danger" v-if="v$.company_number_of_employee.$error">
+                                    {{ v$.company_number_of_employee.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -242,19 +251,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Company Email</label>
-                                <input v-model="company_email" id="company_email" class="form-control" type="text" name="company_email" >
-                                <small v-if="errors.company_email" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_email[0]
-                                }}</small>
+                                <input v-model="stateset.company_email" id="company_email" class="form-control" type="text" name="company_email" >
+                                <span class="form-text text-danger" v-if="v$.company_email.$error">
+                                    {{ v$.company_email.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Company Phone</label>
-                                <input v-model="company_phone" id="company_phone" class="form-control" type="text" name="company_phone" >
-                                <small v-if="errors.company_phone" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_phone[0]
-                                }}</small>
+                                <input v-model="stateset.company_phone" id="company_phone" class="form-control" type="text" name="company_phone" >
+                                <span class="form-text text-danger" v-if="v$.company_phone.$error">
+                                    {{ v$.company_phone.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -262,15 +271,15 @@
                         <div class="col-md-7">
                             <div class="form-group">
                             <label for="pwd">Company Country</label>
-                            <select v-model="company_country" name="company_country" class="form-control" id="company_country" >
+                            <select v-model="stateset.company_country" name="company_country" class="form-control" id="company_country" >
                                 <option value="">--Select One--</option>
                                 <option v-for="(getcountry) in get_countries" :key="getcountry" :value="getcountry">
                                     {{ getcountry }}
                                 </option>
                             </select>
-                            <small v-if="errors.company_country" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_country[0]
-                                }}</small>
+                            <span class="form-text text-danger" v-if="v$.company_country.$error">
+                                {{ v$.company_country.$errors[0].$message }}
+                            </span>
                             </div>
                         </div>
                     </div>
@@ -278,28 +287,28 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Company State</label>
-                                <input v-model="company_state" id="company_state" class="form-control" type="text" name="company_state" >
-                                <small v-if="errors.company_state" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_state[0]
-                                }}</small>
+                                <input v-model="stateset.company_state" id="company_state" class="form-control" type="text" name="company_state" >
+                                <span class="form-text text-danger" v-if="v$.company_state.$error">
+                                    {{ v$.company_state.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Company City</label>
-                                <input v-model="company_city" id="company_city" class="form-control" type="text" name="company_city" >
-                                <small v-if="errors.company_city" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_city[0]
-                                }}</small>
+                                <input v-model="stateset.company_city" id="company_city" class="form-control" type="text" name="company_city" >
+                                <span class="form-text text-danger" v-if="v$.company_city.$error">
+                                    {{ v$.company_city.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pwd">Company Zipcode</label>
-                                <input v-model="company_zip_code" id="company_zip_code" class="form-control" type="text" name="company_zip_code" >
-                                <small v-if="errors.company_zip_code" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_zip_code[0]
-                                }}</small>
+                                <input v-model="stateset.company_zip_code" id="company_zip_code" class="form-control" type="text" name="company_zip_code" >
+                                <span class="form-text text-danger" v-if="v$.company_zip_code.$error">
+                                    {{ v$.company_zip_code.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -307,10 +316,10 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="pwd">Company Address</label>
-                                <textarea v-model="company_address" id="company_address" class="form-control" name="company_address" rows="3" ></textarea>
-                                <small v-if="errors.company_address" id="sh-text1" class="form-text text-danger">{{
-                                    errors.company_address[0]
-                                }}</small>
+                                <textarea v-model="stateset.company_address" id="company_address" class="form-control" name="company_address" rows="3" ></textarea>
+                                <span class="form-text text-danger" v-if="v$.company_address.$error">
+                                    {{ v$.company_address.$errors[0].$message }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -396,15 +405,17 @@
     </template>
     
     <script setup>
-        import { ref, computed, watch, defineAsyncComponent } from 'vue'
+        import { ref,reactive, computed, watch, defineAsyncComponent } from 'vue'
         import { useStore } from 'vuex'
         import { useRoute } from 'vue-router'
         import { useRouter } from 'vue-router';
         import { useDebounceFn } from '@vueuse/core'
-        import Request from '../../apis/Request'
         import Notify from '../../helpers/Notify'
         import { useEmitter } from '@/composables/useEmitter'
         import axios from "axios"
+        import Request from '../../apis/Request'
+        import useVuelidate from '@vuelidate/core';
+        import { required, alpha, email, maxLength, minLength, helpers, sameAs, numeric  } from '@vuelidate/validators';
     
         const store = useStore()
         const router = useRouter()
@@ -415,35 +426,11 @@
         const get_branches = ref([])
         const get_countries = ref([])
         const secret_code = ref('')
-        const agent_name = ref('')
-        const agent_email = ref('')
-        const agent_phone = ref('')
-        const alternative_contact = ref('')
-        const alt_person_name = ref('')
-        const alt_person_email = ref('')
-        const alt_person_phone = ref('')
-        const country = ref('')
-        const branch_id = ref('')
-        const state = ref('')
-        const city = ref('')
-        const address = ref('')
-        const agent_bg_color = ref('')
-        const nationality = ref('')
-        const nid_or_passport = ref('')
+        const person_name = ref('')
+        const person_email = ref('')
+        const person_phone = ref('')
         const logo = ref('')
-        const company_name = ref('')
-        const company_registration_number = ref('')
-        const company_trade_license = ref('')
-        const company_trade_license_number = ref('')
-        const company_establish_date = ref('')
-        const company_number_of_employee = ref('')
-        const company_email = ref('')
-        const company_phone = ref('')
-        const company_country = ref('')
-        const company_state = ref('')
-        const company_city = ref('')
-        const company_zip_code = ref('')
-        const company_address = ref('')
+        
         const additionals = ref([
         {
             additional: '',
@@ -453,47 +440,163 @@
         const getToken = async()=>{
             secret_code.value = route.params.id
         }
+        const stateset = reactive({
+            branch_id: '',
+            agent_name: '',
+            agent_email: '',
+            agent_phone: '',
+            country: '',
+            city: '',
+            state: '',
+            address: '',
+            agent_bg_color: '',
+            alternative_contact: '',
+            nid_or_passport: '',
+            nationality: '',
+            company_name: '',
+            company_registration_number: '',
+            company_trade_license: '',
+            company_trade_license_number: '',
+            company_establish_date: '',
+            company_number_of_employee: '',
+            company_phone: '',
+            company_email: '',
+            company_address: '',
+            company_zip_code: '',
+            company_city: '',
+            company_state: '',
+            company_country: '',
+        })
+        const rules = computed(() =>{
+        return {
+            branch_id: {
+                required: helpers.withMessage("Please Select a Branch!", required),
+            },
+            agent_name: {
+                required: helpers.withMessage("Agent Name field is required!", required),
+                maxLength:helpers.withMessage("Agent Name field contain not more than 20 charecters!", maxLength(30))
+            },
+            agent_email: {
+                required: helpers.withMessage("Agent Email field is required!", required),
+                email: helpers.withMessage("Agent Email field must be valid email address!", email) ,
+            },
+            agent_phone: {
+                required: helpers.withMessage("Agent Phone is Required!", required),
+                numeric: helpers.withMessage("Agent Phone Must be Number!", numeric),
+                minLength:helpers.withMessage("Agent Phone field must be contain 6 charecters!", minLength(6)),
+                maxLength:helpers.withMessage("Agent Phone field contain not more than 20 charecters!", maxLength(20))
+            },
+            country: {
+                required: helpers.withMessage("Please Select Country!", required),
+            },
+            city: {
+                required: helpers.withMessage("City field is required!", required),
+                maxLength:helpers.withMessage("City field contain not more than 20 charecters!", maxLength(30))
+            },
+            state: {
+                required: helpers.withMessage("State field is required!", required),
+            },
+            address: {
+                required: helpers.withMessage("Address field is required!", required),
+            },
+            agent_bg_color: {
+                required: helpers.withMessage("Agent Bg Color is required!", required),
+            },
+            alternative_contact: {
+                required: helpers.withMessage("Alternative Contact is required!", required),
+            },
+            nid_or_passport: {
+                required: helpers.withMessage("Nid or Passport is required!", required),
+            },
+            nationality: {
+                required: helpers.withMessage("Nationality is required!", required),
+            },
+            company_name: {
+                required: helpers.withMessage("Company Name is Required!", required),
+                maxLength:helpers.withMessage("Company Name field contain not more than 20 charecters!", maxLength(20))
+            },
+            company_registration_number: {
+                required: helpers.withMessage("Company Registration Field is Required!", required),
+            },
+            company_trade_license: {
+                required: helpers.withMessage("Company Trade License File is Required!", required),
+            },
+            company_trade_license_number: {
+                required: helpers.withMessage("Company Trade License Number is Required!", required),
+            },
+            company_establish_date: {
+                required: helpers.withMessage("Company Establish Date is Required!", required),
+            },
+            company_number_of_employee: {
+                required: helpers.withMessage("Company Number of Employee is Required!", required),
+            },
+            company_phone: {
+                required: helpers.withMessage("Company Phone is Required!", required),
+            },
+            company_email: {
+                required: helpers.withMessage("Company Email is Required!", required),
+                email: helpers.withMessage("Company Email field must be valid email address!", email) ,
+                maxLength:helpers.withMessage("Company Email field contain not more than 64 charecters!", maxLength(64))
+            },
+            company_address: {
+                required: helpers.withMessage("Company Address field is required!", required),
+            },
+            company_country: {
+                required: helpers.withMessage("Please Select Country!", required),
+            },
+            company_city: {
+                required: helpers.withMessage("Company City field is required!", required),
+                maxLength:helpers.withMessage("Company City field contain not more than 20 charecters!", maxLength(30))
+            },
+            company_state: {
+                required: helpers.withMessage("Company State field is required!", required),
+            },
+            company_zip_code: {
+                required: helpers.withMessage("Company Zip Code field is required!", required),
+            },
+          }
+        })
+        const v$ = useVuelidate(rules,stateset)
+
         const createNewAgent = async()=>{
-            isLoading.value = true
-            isPending.value = true
-            const data = new FormData()
-            data.append('branch_id', branch_id.value)
-            data.append('secret_code', secret_code.value)
-            data.append('agent_name', agent_name.value)
-            data.append('agent_phone', agent_phone.value)
-            data.append('agent_email', agent_email.value)
-            data.append('country', country.value)
-            data.append('city', city.value)
-            data.append('state', state.value)
-            data.append('alternative_contact', alternative_contact.value)
-            data.append('alt_person_name', alt_person_name.value)
-            data.append('alt_person_email', alt_person_email.value)
-            data.append('alt_person_phone', alt_person_phone.value)
-            data.append('address', address.value)
-            data.append('agent_bg_color', agent_bg_color.value)
-            data.append('nationality', nationality.value)
-            data.append('nid_or_passport', nid_or_passport.value)
-            data.append('logo', logo.value)
-            data.append('company_name', company_name.value)
-            data.append('company_registration_number', company_registration_number.value)
-            data.append('company_trade_license', company_trade_license.value)
-            data.append('company_trade_license_number', company_trade_license_number.value)
-            data.append('company_establish_date', company_establish_date.value)
-            data.append('company_number_of_employee', company_number_of_employee.value)
-            data.append('company_email', company_email.value)
-            data.append('company_phone', company_phone.value)
-            data.append('company_country', company_country.value)
-            data.append('company_state', company_state.value)
-            data.append('company_city', company_city.value)
-            data.append('company_zip_code', company_zip_code.value)
-            data.append('company_address', company_address.value)
-            data.append('addtional_info', JSON.stringify(additionals.value))
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            }
-            axios.post('http://127.0.0.1:8000/api/became-an-agent',data,config)
+            v$.value.$validate()
+            if(!v$.value.$error){
+                isLoading.value = true
+                isPending.value = true
+                const data = new FormData()
+                data.append('secret_code',secret_code.value)
+                data.append('branch_id',stateset.branch_id)
+                data.append('agent_phone',stateset.agent_phone)
+                data.append('agent_name',stateset.agent_name)
+                data.append('agent_email',stateset.agent_email)
+                data.append('agent_bg_color',stateset.agent_bg_color)
+                data.append('city',stateset.city)
+                data.append('state',stateset.state)
+                data.append('country',stateset.country)
+                data.append('address',stateset.address)
+                data.append('person_name',person_name.value)
+                data.append('person_phone',person_phone.value)
+                data.append('person_email',person_email.value)
+                data.append('alternative_contact',stateset.alternative_contact)
+                data.append('nid_or_passport', stateset.nid_or_passport)
+                data.append('nationality',stateset.nationality)
+                data.append('logo',logo.value)
+                data.append('company_name',stateset.company_name)
+                data.append('company_registration_number',stateset.company_registration_number)
+                data.append('company_trade_license',stateset.company_trade_license)
+                data.append('company_trade_license_number',stateset.company_trade_license_number)
+                data.append('company_establish_date',stateset.company_establish_date)
+                data.append('company_number_of_employee',stateset.company_number_of_employee)
+                data.append('company_email',stateset.company_email)
+                data.append('company_phone',stateset.company_phone)
+                data.append('company_country',stateset.company_country)
+                data.append('company_state',stateset.company_state)
+                data.append('company_city',stateset.company_city)
+                data.append('company_zip_code',stateset.company_zip_code)
+                data.append('company_address',stateset.company_address)
+                data.append('addtional_info', JSON.stringify(additionals.value))
+                
+                Request.POST_REQ(data,'/became-an-agent')
                 .then(res=> {
                 console.log(res)
                 if(res.data.result.key==101){
@@ -509,13 +612,18 @@
                 }
                 })
                 .catch(error=> {
+                    console.log(error)
                     isPending.value = false
-                    errors.value = error.response.data.errors
-                    Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
-                    Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
-                    Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
+                    // errors.value = error.response.data.errors
+                    // Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
+                    // Notify.error(errors.value.agent_email && error.response.data.errors.agent_email[0])
+                    // Notify.error(errors.value.agent_bg_color && error.response.data.errors.agent_bg_color[0])
                 })
+            }else{
+                window.scrollTo(0,0)
             }
+            
+        }
         const getCountriesForBranch = async() =>{
             isLoading.value = true
             Request.GET_REQ('/get-country-list-for-became-agent')
@@ -577,7 +685,7 @@
         }
         
         function onChangeCompanyTradeLicense(event){
-            company_trade_license.value = event.target.files[0]
+            stateset.company_trade_license = event.target.files[0]
         }
         const add = async()=> {
             additionals.value.push({ additional:'' })
