@@ -72,7 +72,7 @@ const routes = [
     //meta: { guestOnly: true }
   },
   {
-    path: "/agent/success",
+    path: "/invite/success",
     name: "AgentSuccess",
     component: () => import("@/views/InviteAgent/AgentSuccess.vue"),
     //meta: { guestOnly: true }

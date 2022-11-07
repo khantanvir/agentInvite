@@ -17,6 +17,9 @@
                                 <span class="form-text text-danger" v-if="v$.counselor_name.$error">
                                     {{ v$.counselor_name.$errors[0].$message }}
                                 </span>
+                                <small v-if="errors.counselor_name" id="sh-text1" class="form-text text-danger">{{
+                                    errors.counselor_name[0]
+                                }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -59,6 +62,9 @@
                                 <span class="form-text text-danger" v-if="v$.nid_or_passport.$error">
                                     {{ v$.nid_or_passport.$errors[0].$message }}
                                 </span>
+                                <small v-if="errors.nid_or_passport" id="sh-text1" class="form-text text-danger">{{
+                                    errors.nid_or_passport[0]
+                                }}</small>
                             </div> 
                         </div>
                     
@@ -67,7 +73,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pwd">Country</label>
-                                <select v-model="stateset.country" @change="getBranchesByCountry(country)" name="country"
+                                <select v-model="stateset.country" name="country"
                                     class="form-control" >
                                     <option value="">--Select Country--</option>
                                     <option v-for="(countryRow) in get_countries_for_branch" :key="countryRow.id">
@@ -360,14 +366,16 @@
             
             })
             .catch(error=> {
+                console.log(error)
+                window.scrollTo(0,0)
                 isPending.value = false
                 errors.value = error.response.data.errors
                 console.log(errors.value)
                 Notify.error(errors.value.counselor_name && error.response.data.errors.counselor_name[0])
                 Notify.error(errors.value.counselor_email && error.response.data.errors.counselor_email[0])
+                Notify.error(errors.value.nid_or_passport && error.response.data.errors.nid_or_passport[0])
                 Notify.error(errors.value.email && error.response.data.errors.email[0])
-                Notify.error(errors.value.password && error.response.data.errors.password[0])
-                Notify.error(errors.value.password_confirmation && error.response.data.errors.password_confirmation[0])
+                
             })
         }else{
             window.scrollTo(0,0)
@@ -395,19 +403,12 @@
                 })
         }
         //get branches by country 
-        const getBranchesByCountry = async(country_name)=>{
+        const getBranches = async()=>{
             isLoading.value = true
-            Request.GET_REQ('/get-branch-list-for-became_agent/'+country_name)
+            Request.GET_REQ('/get-branches')
                 .then((res) => {
-                if(res.data.result.key==101){
-                    Notify.error(res.data.result.val)
+                    get_branches.value = res.data
                     isLoading.value = false
-                }
-                if(res.data.result.key==200){
-                    //console.log(res.data.result.val)
-                    get_branches.value = res.data.result.val
-                    isLoading.value = false
-                }
                 })
                 .catch((err) => {
                 errors.value = err
@@ -420,6 +421,7 @@
             secret_code.value = route.params.id
         }
         await getCountriesForBranch()
+        await getBranches()
         await getToken()
 </script>
 
