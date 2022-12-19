@@ -84,6 +84,12 @@ const routes = [
     meta: { authOnly: true },
     redirect: "/dashboard",
   },
+  {
+    path: "/user/reset-password/token/:id",
+    name: "ConfirmForgotpassword",
+    component: () => import("@/views/auth/ConfirmForgotPassword.vue"),
+    //meta: { guestOnly: true },
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: () => import("@/views/NotFound.vue"), },
   
 ];
