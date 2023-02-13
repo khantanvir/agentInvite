@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div>
     <div v-if="user && user.user_type === 'superAdmin'" class="layout-px-spacing">
       <div id="card_1" class="col-lg-12 layout-spacing layout-top-spacing">
@@ -100,9 +100,9 @@ await fetchPrimary()
 .component-card_1 {
   width: auto;
 }
-</style> -->
-<template>
+</style>
+<!-- <template>
   <div>Hello</div>
 </template>
 <script setup>
-</script>
+</script> -->

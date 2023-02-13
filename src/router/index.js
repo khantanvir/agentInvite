@@ -33,7 +33,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("@/views/Dashboard.vue"),
-    meta: { authOnly: true },
     redirect: "/dashboard",
   },
   {
