@@ -2,54 +2,6 @@ import Notify from "@/helpers/Notify";
 import { createRouter, createWebHistory } from "vue-router";
 
 
-const requireAuthRole = (to, from, next) => {
-  let user = localStorage.getItem("user");
-      user = JSON.parse(user);
-      if (user.user_type == 'superAdmin' || user.user_type == 'branchManager') {
-        next();
-      } else {
-        next({
-          path: "/dashboard",
-          query: { redirect: to.fullPath }
-        });
-      }
-};
-const requireSuperAdminAuthRole = (to, from, next) => {
-  let user = localStorage.getItem("user");
-      user = JSON.parse(user);
-      if (user.user_type == 'superAdmin') {
-        next();
-      } else {
-        next({
-          path: "/dashboard",
-          query: { redirect: to.fullPath }
-        });
-      }
-};
-const counselorAuthRole = (to, from, next) => {
-  let user = localStorage.getItem("user");
-      user = JSON.parse(user);
-      if ((user.user_type == 'superAdmin') || (user.user_type == 'branchManager') || (user.user_type == 'counselor')) {
-        next();
-      } else {
-        next({
-          path: "/dashboard",
-          query: { redirect: to.fullPath }
-        });
-      }
-};
-const frontOffierAuthRole = (to, from, next) => {
-  let user = localStorage.getItem("user");
-      user = JSON.parse(user);
-      if (user.user_type == 'superAdmin' || user.user_type == 'branchManager' || user.user_type == 'counselor' || user.user_type == 'frontOfficer') {
-        next();
-      } else {
-        next({
-          path: "/dashboard",
-          query: { redirect: to.fullPath }
-        });
-      }
-};
 
 const routes = [
   

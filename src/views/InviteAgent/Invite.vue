@@ -18,9 +18,6 @@
                                 <span class="form-text text-danger" v-if="v$.agent_name.$error">
                                     {{ v$.agent_name.$errors[0].$message }}
                                 </span>
-                                <small v-if="errors.agent_name" id="sh-text1" class="form-text text-danger">{{
-                                    errors.agent_name[0]
-                                }}</small>
                               </div>
                         </div>
                         <div class="col-md-6">
@@ -30,9 +27,7 @@
                                 <span class="form-text text-danger" v-if="v$.agent_email.$error">
                                     {{ v$.agent_email.$errors[0].$message }}
                                 </span>
-                                <small v-if="errors.agent_email" id="sh-text1" class="form-text text-danger">{{
-                                    errors.agent_email[0]
-                                }}</small>
+                                
                               </div>
                         </div>
                     </div>
@@ -158,9 +153,6 @@
                                 <span class="form-text text-danger" v-if="v$.agent_bg_color.$error">
                                     {{ v$.agent_bg_color.$errors[0].$message }}
                                 </span>
-                                <small v-if="errors.agent_bg_color" id="sh-text1" class="form-text text-danger">{{
-                                    errors.agent_bg_color[0]
-                                }}</small>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -273,8 +265,8 @@
                             <label for="pwd">Company Country</label>
                             <select v-model="stateset.company_country" name="company_country" class="form-control" id="company_country" >
                                 <option value="">--Select One--</option>
-                                <option v-for="(getcountry) in get_countries" :key="getcountry" :value="getcountry">
-                                    {{ getcountry }}
+                                <option v-for="(getcountry) in get_countries" :key="getcountry" :value="getcountry.id">
+                                    {{ getcountry.name }}
                                 </option>
                             </select>
                             <span class="form-text text-danger" v-if="v$.company_country.$error">
@@ -430,6 +422,7 @@
         const person_email = ref('')
         const person_phone = ref('')
         const logo = ref('')
+        const $externalResults = ref({})
         
         const additionals = ref([
         {
@@ -556,7 +549,7 @@
             },
           }
         })
-        const v$ = useVuelidate(rules,stateset)
+        const v$ = useVuelidate(rules, stateset, { $externalResults, $autoDirty: true, $lazy: false })
 
         const createNewAgent = async()=>{
             v$.value.$validate()
@@ -613,6 +606,8 @@
                 })
                 .catch(error=> {
                     console.log(error)
+                    $externalResults.value = error.response.data.errors
+                    window.scrollTo(0, 0)
                     isPending.value = false
                     // errors.value = error.response.data.errors
                     // Notify.error(errors.value.agent_name && error.response.data.errors.agent_name[0])
@@ -626,12 +621,8 @@
         }
         const getCountriesForBranch = async() =>{
             isLoading.value = true
-            Request.GET_REQ('/get-country-list-for-became-agent')
+            Request.GET_REQ('/get-all-countries-for-invite')
                 .then((res) => {
-                if(res.data.result.key==101){
-                    Notify.error(res.data.result.val)
-                    isLoading.value = false
-                }
                 if(res.data.result.key==200){
                     console.log(res.data.result.val)
                     get_countries_for_branch.value = res.data.result.val
@@ -644,15 +635,10 @@
         }
         //get branches by country 
         const getBranchesByCountry = async()=>{
-            Request.GET_REQ('/get-branch-list-for-became_agent')
+            Request.GET_REQ('/get-branches-for-web')
                 .then((res) => {
-                if(res.data.result.key==101){
-                    Notify.error(res.data.result.val)
-                }
-                if(res.data.result.key==200){
-                    get_branches.value = res.data.result.val
+                    get_branches.value = res.data
                     isLoading.value = false
-                }
                 })
                 .catch((err) => {
                 errors.value = err
@@ -661,12 +647,8 @@
         //get all countries
         const getAllCountries = async()=>{
             isLoading.value = true
-            Request.GET_REQ('/get-all-countries')
+            Request.GET_REQ('/get-all-countries-for-invite')
             .then((res) => {
-            if(res.data.result.key==101){
-                Notify.error(res.data.result.val)
-                isLoading.value = false
-            }
             if(res.data.result.key==200){
                 console.log(res.data.result.val)
                 get_countries.value = res.data.result.val
@@ -702,16 +684,12 @@
     </script>
     
     <style scoped lang="scss">
-        .max-width{
-            background-color: #ffffff;
-        }
+        
         .custom-body{
             margin: 30px;
-            background-color: #e2e3e2;
         }
         .form-group label, label{
             font-size: 17px !important;
-            color: #17181c !important;
             letter-spacing: 1px
         }
         .custom-title{

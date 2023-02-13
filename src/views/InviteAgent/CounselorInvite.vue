@@ -386,7 +386,7 @@
 
     const getCountriesForBranch = async() =>{
             isLoading.value = true
-            Request.GET_REQ('/get-country-list-for-became-agent')
+            Request.GET_REQ('/get-all-countries-for-invite')
                 .then((res) => {
                 console.log(res)
                 if(res.data.result.key==101){
@@ -406,7 +406,7 @@
         //get branches by country 
         const getBranches = async()=>{
             isLoading.value = true
-            Request.GET_REQ('/get-branches')
+            Request.GET_REQ('/get-branches-for-web')
                 .then((res) => {
                     get_branches.value = res.data
                     isLoading.value = false
