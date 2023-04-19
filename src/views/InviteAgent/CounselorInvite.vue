@@ -358,8 +358,8 @@
                 }
                 if(res.data.result.key==200){
                     isLoading.value = false
-                    Notify.success('Counselor Request Sent Successfully!')
-                    router.push({ name: 'AgentSuccess' })
+                    Notify.success('Congratulations on successfully registering!')
+                    router.push({ name: 'CounselorSuccess' })
                     isPending.value = false
                 }
             

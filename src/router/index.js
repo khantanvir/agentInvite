@@ -30,6 +30,12 @@ const routes = [
     //meta: { guestOnly: true }
   },
   {
+    path: "/counselor/success",
+    name: "CounselorSuccess",
+    component: () => import("@/views/InviteAgent/CounselorSuccess.vue"),
+    //meta: { guestOnly: true }
+  },
+  {
     path: "/",
     name: "Home",
     component: () => import("@/views/Dashboard.vue"),

@@ -62,7 +62,7 @@
                     name="confirm_password"
                     type="password"
                     class="form-control"
-                    placeholder="Password"
+                    placeholder="Confirm Password"
                   />
                   <span class="form-text text-danger" v-if="v$.confirm_password.$error">
                     {{ v$.confirm_password.$errors[0].$message }}
@@ -86,13 +86,13 @@
                   </div>
                 </div><br>
                 <div class="text-center forgot-password-css">
-                  Already Have Account <a href="https://staging.theleadlibrary.com/login" >Go To Login</a>
+                  Already Have Account <a href="https://nwc.theleadlibrary.com/login" >Go To Login</a>
                 </div>
               </div>
             </form>
             <p class="terms-conditions">
               © 2020 All Rights Reserved.
-              <a href="//digital-planet.co.uk" target="_blank">Digital Planet</a>
+              <a href="https://theleadlibrary.com/" target="_blank">The Lead Library</a>
             </p>
           </div>
         </div>
